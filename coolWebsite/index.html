@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./Ask.js"></script>
+</head>
+<body>
+
+    <p id="alex">hello1</p>
+    
+    <button type="button" onclick="changeBackground()">Set background color</button>
+    <button type="button" onclick="website()">Go to a website</button>
+    <button type="button" onclick="changeHello()">Change hello text</button>
+    <button type="button" onclick="nothing()">free robux</button>
+
+    <div id="colorOptions" style="display:none;">
+        <label><input type="radio" name="color" value="purple"> Purple</label><br>
+        <label><input type="radio" name="color" value="blue"> Blue</label><br>
+        <label><input type="radio" name="color" value="green"> Green</label><br>
+        <label><input type="radio" name="color" value="White"> Reset</label><br>
+        <button type="button" onclick="applyColor()">u sure????</button>
+    </div>
+
+    <script>
+        function changeBackground() {
+            document.getElementById("colorOptions").style.display = "block";
+        }
+
+        function applyColor() {
+            const color = document.querySelector('input[name="color"]:checked');
+            if (color) {
+                document.body.style.backgroundColor = color.value;
+                document.getElementById("colorOptions").style.display = "none";
+            } else {
+                alert("pick a color");
+            }
+        }
+        function website() {
+            let url = prompt("give website url (including https://):");
+            if (url && url.startsWith("http")) {
+                window.location.href = url;
+            } else {
+                alert("DOESNT WORK!!!!!");
+            }
+        }
+
+        function changeHello() {
+            let text = prompt("What should the text say??????");
+            if (text) {
+                document.getElementById("alex").innerText = text;
+            }
+        }
+    </script>
+
+</body>
+</html>
