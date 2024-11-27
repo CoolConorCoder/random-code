@@ -1,1 +1,0 @@
-let age = prompt('How old are you?', 18);
