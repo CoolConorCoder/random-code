@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Really Cool Calculator</title>
+</head>
+<body>
+    <input type="text" id="display" disabled>
+    <br>
+    <button onclick="inputDigit(1)">1</button>
+    <button onclick="inputDigit(2)">2</button>
+    <button onclick="inputDigit(3)">3</button>
+    <button onclick="inputOperator('+')">+</button>
+    <br>
+    <button onclick="inputDigit(4)">4</button>
+    <button onclick="inputDigit(5)">5</button>
+    <button onclick="inputDigit(6)">6</button>
+    <button onclick="inputOperator('-')">-</button>
+    <br>
+    <button onclick="inputDigit(7)">7</button>
+    <button onclick="inputDigit(8)">8</button>
+    <button onclick="inputDigit(9)">9</button>
+    <button onclick="inputOperator('*')">*</button>
+    <br>
+    <button onclick="inputDigit(0)">0</button>
+    <button onclick="clearInput()">Clear</button>
+    <button onclick="computeResult()">=</button>
+    <button onclick="inputOperator('/')">/</button>
+
+    <script>
+        let currentInput = '';
+        let currentOperator = '';
+        let firstNumber = '';
+
+        function inputDigit(digit) {
+            currentInput += digit;
+            document.getElementById('display').value = currentInput;
+        }
+
+        function inputOperator(operator) {
+            if (currentInput === '') return;
+            firstNumber = currentInput;
+            currentInput = '';
+            currentOperator = operator;
+        }
+
+        function clearInput() {
+            currentInput = '';
+            firstNumber = '';
+            currentOperator = '';
+            document.getElementById('display').value = '';
+        }
+
+        function computeResult() {
+            if (firstNumber && currentInput && currentOperator) {
+                let result = eval(firstNumber + currentOperator + currentInput);
+                document.getElementById('display').value = result;
+                currentInput = result;
+                firstNumber = '';
+                currentOperator = '';
+            }
+        }
+    </script>
+</body>
+</html>
