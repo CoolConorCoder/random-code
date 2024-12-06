@@ -1,0 +1,79 @@
+setBackdropURL("./docs/images/flappyback.png");
+setBackdropStyle("cover");
+
+var score = 0;
+
+var variableTextSprite = new Text();
+variableTextSprite.text = () => "you have " + score + " balls";
+variableTextSprite.x = 0;
+variableTextSprite.y = 200;
+variableTextSprite.size = 30;
+variableTextSprite.color = "rgb(0, 0, 0)";
+
+var bossShip = new Image();
+bossShip.src = "./docs/images/picnic-basket.png";
+bossShip.width = 100;
+bossShip.height = 100;
+
+var clones = [];
+bossShip.x = mouseX;
+bossShip.y = -200;
+
+forever(() => {
+  bossShip.x = mouseX;
+});
+
+every(1, "seconds", () => {
+  var clone = new Circle();
+  clone.radius = 10;
+  clone.color = rgb(4, 64, 70);
+  clone.x = randomX();
+  clone.y = 500;
+  clones.push(clone);
+});
+
+forever(() => {
+  clones.forEach(clone => {
+    clone.y--;
+    clone.y--;
+
+    if (clone.x > maxX) {
+      clone.delete();
+      clones = clones.filter(item => item !== clone);
+    }
+
+    if (clone.touching(bossShip)) {
+      score += 1;
+      clone.delete();
+      clones = clones.filter(item => item !== clone);
+    }
+  });
+});
+
+var textSprite1 = new Text();
+textSprite1.text = () => "doggy is super sad :( click anywhere to reset";
+textSprite1.size = 25;
+textSprite1.color = "rgb(0, 0, 0)";
+textSprite1.x = 0;
+textSprite1.y = 250;
+
+forever(() => {
+  if (clones.some(clone => clone.y <= -255)) {
+    score -= 1;
+  }
+
+  if (score < 0) {
+    textSprite1.show();
+    freeze();
+    onMouseDown(() => {
+      clones.forEach(clone => clone.delete());
+      clones = [];
+      score = 0;
+      textSprite1.hide();
+      defrost();
+    });
+  } else {
+    textSprite1.hide();
+    defrost();
+  }
+});
